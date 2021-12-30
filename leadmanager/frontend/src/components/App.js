@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux'
 import { getLeads } from "../reducers/leadsReducer";
 import '../app.css'
+
+
 const App = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
@@ -10,7 +12,7 @@ const App = (props) => {
 
     return (
         <div>
-            <h1 className='hiphei'>Hello djangoreacti!</h1>
+            <h1 className='hiphei'>Hello djangoreactredux!</h1>
         </div>)
 }
 const mapDispatchToProps = {
