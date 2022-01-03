@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 const leadsReducer = (state = [], action) => {
     switch (action.type) {
         case 'START':
@@ -7,7 +8,12 @@ const leadsReducer = (state = [], action) => {
                 state = leads
             }
             return state
-
+        case 'DELETE':
+            const id = action.data.id
+            state = state.filter(l => l.id != id)
+            return state
+        case 'ADDLEAD':
+            state = state.concat(action.data.lead)
         default:
             return state
     }
@@ -15,7 +21,13 @@ const leadsReducer = (state = [], action) => {
 
 export const getLeads = () => {
     return async (dispatch) => {
-        const ans = await axios.get("api/leads")
+        const token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        }
+        const ans = await axios.get("api/leads", config)
         const leads = ans.data
         dispatch({
             type: 'START',
@@ -23,6 +35,50 @@ export const getLeads = () => {
                 leads
             }
         })
+    }
+}
+export const deleteLead = (id) => {
+    return async (dispatch) => {
+        const ans = await axios.delete(`api/leads/${id}`)
+
+        dispatch({
+            type: 'DELETE',
+            data: {
+                id
+            }
+        })
+    }
+}
+export const addLead = (newlead, token) => {
+    return async (dispatch) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }
+        }
+        try {
+            const ans = await axios.post("api/leads/", newlead, config)
+            const lead = ans.data
+            dispatch({
+                type: 'ADDLEAD',
+                data: {
+                    lead
+                }
+            })
+
+        } catch (error) {
+            // console.log('erroria', error.response.data)
+            // throw error
+            console.log(error.response, 'tsekkingkiä')
+            dispatch({
+                type: 'GETERRORS',
+                data: {
+                    msg: error.response.data,
+                    status: error.response.status
+                }
+            })
+        }
     }
 }
 

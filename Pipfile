@@ -4,8 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
-djangorestframework = "*"
+django = "==3.2.10"
+djangorestframework = "==3.12.4"
 django-rest-knox = "*"
 black = "*"
 
