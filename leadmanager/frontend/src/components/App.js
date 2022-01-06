@@ -15,14 +15,15 @@ import Login from './accounts/Login';
 import Header from './layouts/Header';
 import PrivateRoute from './common/PrivateRoute';
 import { loadUser } from '../reducers/auth';
+import Tuotteet from './tuotteet/Tuotteet';
+import Arvostelut from './tuotteet/Arvostelut';
 
-const App = () => {
+const App = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getLeads())
         dispatch(loadUser())
     }, [dispatch])
-
 
     return (
         <div>
@@ -33,6 +34,8 @@ const App = () => {
                 <PrivateRoute exact path="/" component={Leads}></PrivateRoute>
                 <Route exact path="/login" component={Login}></Route>
                 <Route exact path="/register" component={Register}></Route>
+                <Route exact path="/tuotteet" component={Tuotteet}></Route>
+                <Route exact path="/tuotteet/:filter/arvostelut" component={Arvostelut}></Route>
             </Switch>
         </div>)
 }

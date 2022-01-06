@@ -35,6 +35,7 @@ const Login = ({ isAuthenticated }) => {
                         <label>Username</label>
                         <input
                             type="text"
+                            placeholder='Your username'
                             className="form-control"
                             name="username"
                             onChange={(e) => setUserName(e.target.value)}
@@ -46,6 +47,8 @@ const Login = ({ isAuthenticated }) => {
                         <label>Password</label>
                         <input
                             type="password"
+                            autoComplete='none'
+                            placeholder='Your password here'
                             className="form-control"
                             name="password"
                             onChange={(e) => setPassword(e.target.value)}
